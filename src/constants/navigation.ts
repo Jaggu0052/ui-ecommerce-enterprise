@@ -17,7 +17,7 @@ import {
 import type { Role } from "@/types";
 
 export const APP_NAME = "EnterpriseOS Commerce";
-export const API_BASE_URL = "https://api-ecommerce-enterprise-backend.onrender.com";
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:3005/api/v1";
 
 export const ROLES: Role[] = ["SUPER_ADMIN", "ADMIN", "MANAGER", "EMPLOYEE", "CUSTOMER"];
 

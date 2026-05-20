@@ -7,7 +7,7 @@ import { useAppSelector } from "@/store/hooks";
 import { getInitials } from "@/lib/utils";
 
 export default function ProfilePage() {
-  const user = useAppSelector((state) => state.auth.user);
+  const user = useAppSelector((state:any) => state.auth.user);
 
   return (
     <div className="grid gap-6 lg:grid-cols-[360px_1fr]">
@@ -17,7 +17,7 @@ export default function ProfilePage() {
             {getInitials(user?.name)}
           </span>
           <CardTitle>{user?.name || "Admin User"}</CardTitle>
-          <Badge>{user?.role || "SUPER_ADMIN"}</Badge>
+          <Badge>{user?.role?.name || "SUPER_ADMIN"}</Badge>
         </CardHeader>
         <CardContent className="space-y-3 text-sm">
           <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-muted-foreground" />{user?.email || "admin@enterprise.com"}</p>

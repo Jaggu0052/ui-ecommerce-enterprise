@@ -13,7 +13,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   const dispatch = useAppDispatch();
   const collapsed = useAppSelector((state) => state.theme.sidebarCollapsed);
-  const role = useAppSelector((state) => state.auth.user?.role) ?? "SUPER_ADMIN";
+  const role = useAppSelector((state:any) => state.auth.user?.role?.name) ?? "SUPER_ADMIN";
 
   return (
     <aside

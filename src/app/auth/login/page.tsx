@@ -11,9 +11,22 @@ import type { z } from "zod";
 export default function LoginPage() {
   const { signIn } = useAuth();
   const mutation = useMutation({
-    mutationFn: authService.login,
-    onSuccess: (data) => signIn(data.token, data.user)
-  });
+  mutationFn: authService.login,
+
+  onSuccess: (response: any) => {
+    const token =
+      response.data.token;
+
+    const user =
+      response.data.user;
+
+    signIn(token, user);
+  },
+
+  onError: (error: any) => {
+    console.log(error);
+  },
+});
 
   return (
     <Card className="glass-panel">

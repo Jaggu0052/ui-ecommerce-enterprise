@@ -17,6 +17,7 @@ export function useAuth() {
   }, [dispatch]);
 
   function signIn(token: string, user: User) {
+    debugger
     persistSession(token, user);
     dispatch(setCredentials({ token, user }));
     router.push("/dashboard");
