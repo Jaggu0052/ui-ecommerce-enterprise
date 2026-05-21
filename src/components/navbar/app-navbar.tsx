@@ -9,20 +9,28 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/useAuth";
 import { getInitials } from "@/lib/utils";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { toggleMobileSidebar } from "@/store/slices/themeSlice";
 
 export function AppNavbar() {
   const pathname = usePathname();
   const title = pathname.split("/").filter(Boolean).at(-1)?.replaceAll("-", " ") || "dashboard";
   const { theme, setTheme } = useTheme();
   const { signOut } = useAuth();
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   const unread = useAppSelector((state) => state.notifications.unread);
 
   return (
     <header className="sticky top-0 z-30 border-b bg-background/85 backdrop-blur-xl">
       <div className="flex h-16 items-center gap-3 px-4 lg:px-6">
-        <Button className="lg:hidden" variant="ghost" size="icon" aria-label="Open mobile navigation">
+        <Button
+          className="lg:hidden"
+          variant="ghost"
+          size="icon"
+          aria-label="Open mobile navigation"
+          onClick={() => dispatch(toggleMobileSidebar())}
+        >
           <Menu className="h-5 w-5" />
         </Button>
         <div className="min-w-0">

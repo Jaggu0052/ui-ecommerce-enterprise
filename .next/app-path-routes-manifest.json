@@ -7,14 +7,14 @@
   "/auth/forgot-password/page": "/auth/forgot-password",
   "/auth/login/page": "/auth/login",
   "/categories/page": "/categories",
-  "/dashboard/page": "/dashboard",
   "/customers/page": "/customers",
   "/ecommerce/page": "/ecommerce",
   "/employees/page": "/employees",
+  "/dashboard/page": "/dashboard",
   "/orders/page": "/orders",
-  "/notifications/page": "/notifications",
-  "/salaries/page": "/salaries",
-  "/settings/page": "/settings",
   "/products/page": "/products",
-  "/profile/page": "/profile"
+  "/profile/page": "/profile",
+  "/settings/page": "/settings",
+  "/notifications/page": "/notifications",
+  "/salaries/page": "/salaries"
 }

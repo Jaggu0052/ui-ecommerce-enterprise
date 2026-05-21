@@ -59,52 +59,46 @@ export function DataTable<T extends object>({
           </Button>
         </div>
       </div>
-      <div className="overflow-x-auto scrollbar-thin">
-        <table className="w-full min-w-[760px] text-sm">
-          <thead className="bg-muted/50 text-muted-foreground">
-            <tr>
-              <th className="w-10 px-4 py-3 text-left">
-                <input type="checkbox" className="rounded border-input" aria-label="Select all rows" />
-              </th>
-              {columns.map((column) => (
-                <th key={String(column.key)} className="px-4 py-3 text-left font-medium">
-                  <button
-                    className={cn("inline-flex items-center gap-1", column.sortable && "hover:text-foreground")}
-                    onClick={() => column.sortable && setSortKey(String(column.key))}
-                    type="button"
-                  >
-                    {column.header}
-                    {column.sortable && <ArrowUpDown className="h-3.5 w-3.5" />}
-                  </button>
-                </th>
-              ))}
-              <th className="px-4 py-3 text-right font-medium">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pageRows.map((row, index) => (
-              <tr key={String((row as Record<string, unknown>).id ?? index)} className="border-t transition-colors hover:bg-muted/40">
-                <td className="px-4 py-3">
-                  <input type="checkbox" className="rounded border-input" aria-label="Select row" />
-                </td>
+
+      {pageRows.length === 0 ? (
+        <div className="border-t p-6 text-center text-sm text-muted-foreground">No records found.</div>
+      ) : (
+        <div className="grid gap-4 border-t p-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {pageRows.map((row, index) => (
+            <div
+              key={String((row as Record<string, unknown>).id ?? index)}
+              className="group overflow-hidden rounded-2xl border border-border bg-background p-4 shadow-sm transition hover:border-primary/70 hover:bg-primary/5 hover:shadow-lg"
+            >
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="min-w-0 space-y-2">
+                  <p className="truncate text-base font-semibold text-foreground">
+                    {String((row as Record<string, unknown>)[String(columns[0].key)] ?? "")}
+                  </p>
+                  <p className="text-sm text-muted-foreground">{title}</p>
+                </div>
+                <Button variant="ghost" size="icon" aria-label="Open row actions">
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </div>
+
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {columns.map((column) => {
                   const value = (row as Record<string, unknown>)[String(column.key)];
                   return (
-                    <td key={String(column.key)} className="px-4 py-3">
-                      {column.render ? column.render(row) : String(value ?? "")}
-                    </td>
+                    <div key={String(column.key)} className="rounded-2xl border border-muted/20 bg-muted/5 p-4">
+                      <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{column.header}</p>
+                      <div className="mt-2 text-sm font-medium text-foreground">
+                        {column.render ? column.render(row) : String(value ?? "")}
+                      </div>
+                    </div>
                   );
                 })}
-                <td className="px-4 py-3 text-right">
-                  <Button variant="ghost" size="icon" aria-label="Open row actions">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       <div className="flex items-center justify-between border-t px-4 py-3 text-sm text-muted-foreground">
         <span>
           Page {page} of {pageCount}
